@@ -31,8 +31,8 @@ const options = {
     }
   },
 };
-
 flatpickr(input, options);
+
 
 startButton.addEventListener('click', handlerClick);
 
@@ -40,13 +40,19 @@ function handlerClick() {
   const interval = setInterval(() => {
     const currentDate = new Date();
     const { days, hours, minutes, seconds } = convertMs(timeUser - currentDate);
-
-    daysDifference.textContent = days;
+    
+    daysDifference.textContent = addLeadingZero(days);
     hoursDifference.textContent = addLeadingZero(hours);
     minutesDifference.textContent = addLeadingZero(minutes);
     secondsDifference.textContent = addLeadingZero(seconds);
+    
+    input.disabled = true
+    startButton.disabled = true;
+    if (timeUser - currentDate < 1000){
+       clearInterval(interval)
+       input.disabled = false
 
-    if (timeUser - currentDate < 1000) clearInterval(interval);
+      };
   }, 1000);
 }
 
